@@ -1,0 +1,67 @@
+3.1. create sample migration script
+    php artisan make:migration create_users_table
+    php artisan migrate
+    php artisan make:model User
+    php artisan make:model Role
+    php artisan make:model Post
+
+3.2. create Eloquent using many to many and one to many. | 3.3. use PSR2 for coding standard
+
+// app/Models/User.php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class User extends Model
+{
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+}
+
+
+
+
+
+
+
+// app/Models/Role.php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Role extends Model
+{
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+}
+
+
+
+
+
+
+
+// app/Models/Post.php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+}
